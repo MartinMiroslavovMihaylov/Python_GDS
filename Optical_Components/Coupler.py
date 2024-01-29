@@ -9,8 +9,44 @@ from Optical_Components.S_Bends import *
 
 
 class MMI1x2:
+    '''
+    1x2 MMI GDS Class
+    '''
     cell_name = "MMI1x2"
     def __init__(self,width_MMI, length_MMI, width_WG, length_WG, gap, layer_Struct= Layer.Struct, layer_text_Pots = Layer.TXT_Ports, layer_Arrow = Layer.ARROW_CLR , spacing = None, lenght_bend = None, pins = True):
+        '''
+        
+
+        Parameters
+        ----------
+        width_MMI : int/float
+            Width of the MMI.
+        length_MMI : int/float
+            Length of the MMI.
+        width_WG : int/float
+            Width of the Waveguide.
+        length_WG : int/float
+            Length of the Waveguide.
+        gap : int/float
+            Gap between the output Waveguides.
+        layer_Struct : layer lib parametes, optional
+            The default is Layer.Struct.
+        layer_text_Pots : layer lib parametes, optional
+            The default is Layer.Struct. The default is Layer.TXT_Ports.
+        layer_Arrow : layer lib parametes, optional
+            The default is Layer.Struct. The default is Layer.ARROW_CLR.
+        spacing : int/float, optional
+            Space between the Outputs of the Waveguides when S-Bends are used. The default is None.
+        lenght_bend : int/float, optional
+            Length of the S-Bends. The default is None.
+        pins : boolen, optional
+            Show pins in the GDSII file. The default is True.
+
+        Returns
+        -------
+        None.
+
+        '''
         self.width_MMI = width_MMI
         self.length_MMI = length_MMI
         self.width_WG = width_WG
@@ -28,6 +64,15 @@ class MMI1x2:
         self._cell = self.create_gds()
 
     def create_gds(self):
+        '''
+        
+
+        Returns
+        -------
+        cell : cell nezca object
+            Return cell object for the nezca library.
+
+        '''
         with nd.Cell(MMI1x2.cell_name) as cell:
             if self.spacing:
 
@@ -91,6 +136,22 @@ class MMI1x2:
 
     
     def put(self, *args, **kwargs):
+        '''
+        
+
+        Parameters
+        ----------
+        *args : TYPE
+            DESCRIPTION.
+        **kwargs : TYPE
+            DESCRIPTION.
+
+        Returns
+        -------
+        Cell to put on the nazca GDSII file
+            Do not chnage.
+
+        '''
         return self._cell.put(*args, **kwargs)
 
 
@@ -104,8 +165,40 @@ class MMI1x2:
 
 
 class DirectionalCoupler:
+    '''
+    Directional Coupler
+    '''
     cell_name = "DirectionalCoupler"
     def __init__(self, length_DC, width_WG, gap, layer_Struct=Layer.Struct, layer_text_Pots = Layer.TXT_Ports, layer_Arrow = Layer.ARROW_CLR, spacing = None, lenght_bend = None, pins = True):
+        '''
+        
+
+        Parameters
+        ----------
+        length_DC : int/float
+            Length of the Directional Coupler.
+        width_WG : int/float
+            Width of the Directional Coupler.
+        gap : int/float
+            Space between the waveguides of the Directional Coupler.
+        layer_Struct : list, optional
+            Layers Definition, do not change! The default is Layer.Struct.
+        layer_text_Pots : list, optional
+            Layers Definition, do not change! The default is Layer.TXT_Ports.
+        layer_Arrow : list, optional
+           Layers Definition, do not change! The default is Layer.ARROW_CLR.
+        spacing : int/float, optional
+            Space between the output and input waveguides after the S-Bends. The default is None.
+        lenght_bend : int/float, optional
+            Length of the S-Bends. The default is None.
+        pins : boolen, optional
+            Pins will be set on the GDSII file. The default is True.
+
+        Returns
+        -------
+        None.
+
+        '''
         self.length_DC = length_DC
         self.width_WG = width_WG
         self.gap = gap
@@ -121,6 +214,16 @@ class DirectionalCoupler:
         self._cell = self.create_gds()
 
     def create_gds(self):
+        '''
+        
+
+        Returns
+        -------
+        cell : cell nezca object
+            Return cell object for the nezca library.
+
+
+        '''
         with nd.Cell(DirectionalCoupler.cell_name) as cell:
             
 
@@ -159,16 +262,65 @@ class DirectionalCoupler:
 
     
     def put(self, *args, **kwargs):
+        '''
+        
+
+        Parameters
+        ----------
+        *args : TYPE
+            DESCRIPTION.
+        **kwargs : TYPE
+            DESCRIPTION.
+
+        Returns
+        -------
+        Cell to put on the nazca GDSII file
+            Do not chnage.
+
+        '''
         return self._cell.put(*args, **kwargs)
     
 
 
 
 class YJunction:
+    '''
+    Y-Junction
+    '''
     cell_name = "YJunction"
     number = 0  
 
     def __init__(self, width_WG, length, gap, layer_Struct=Layer.Struct,  layer_text_Pots = Layer.TXT_Ports, layer_Arrow = Layer.ARROW_CLR ,spacing=None, Bend_Length = None, reverse = None):
+        '''
+        
+
+        Parameters
+        ----------
+        width_WG : int/float
+            Width of the Waveguide
+        length : int/float
+            Length of the Y-Junction
+        gap : int/float
+            Gap between the Output Wavguides.
+        layer_Struct : list, optional
+            Layers Definition, do not change! The default is Layer.Struct.
+        layer_text_Pots : list, optional
+            Layers Definition, do not change! The default is Layer.TXT_Ports.
+        layer_Arrow : list, optional
+            Layers Definition, do not change! The default is Layer.ARROW_CLR.
+        spacing : int/float, optional
+            Space between the Output Waveguides when S-Bends are used. The default is None.
+        Bend_Length : int/float, optional
+            Length of the S-Bends. The default is None.
+        reverse : int/float, optional
+            Set revers to an  random numbe, for example reverse = 1 to mirror the
+            curve on the Y-Axis. The default is None.
+
+        Returns
+        -------
+        None.
+
+        '''
         self.width_WG = width_WG
         self.length = length
         self.gap = gap
@@ -185,6 +337,15 @@ class YJunction:
         self._cell = self.create_gds()
 
     def create_gds(self):
+        '''
+        
+
+        Returns
+        -------
+        cell : cell nezca object
+            Return cell object for the nezca library.
+
+        '''
         if self.reverse:    
             with nd.Cell(name=YJunction.cell_name) as cell:
                 
@@ -254,4 +415,19 @@ class YJunction:
 
 
     def put(self, *args, **kwargs):
+        '''
+        
+        Parameters
+        ----------
+        *args : TYPE
+            DESCRIPTION.
+        **kwargs : TYPE
+            DESCRIPTION.
+
+        Returns
+        -------
+        Cell to put on the nazca GDSII file
+            Do not chnage.
+
+        '''
         return self._cell.put(*args, **kwargs)

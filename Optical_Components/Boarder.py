@@ -6,12 +6,40 @@ from Optical_Components.LayerDeff import *
 
 
 class Border:
+    '''
+    Set and Chip Frame to the GDSII File
+    '''
     cell_name = "Border"
     text_offset_x = 150
     text_offset_y = 30
 
 
     def __init__(self, chip_size_x, chip_size_y, layer_deep_grid=Layer.DEEP_GRID, text_layer=Layer.TXT_DEEP_GRID, layer_payload=Layer.PAYLOAD, text_bottom = "", text_top = "" ):
+        '''
+        
+
+        Parameters
+        ----------
+        chip_size_x : int/float
+            Width of the Chip.
+        chip_size_y : int/float
+            Length of the Chip.
+        layer_deep_grid : list, optional
+            Layers Definition, do not change! The default is Layer.DEEP_GRID.
+        text_layer :  list, optional
+            Layers Definition, do not change! The default is Layer.TXT_Struct.
+        layer_payload : list, optional
+            Layers Definition, do not change! The default is Layer.PAYLOAD.
+        text_bottom : str, optional
+            An Text that appears under the chip main Frame. The default is "".
+        text_top : str, optional
+            An Text that appears over the chip main Frame. The default is "".
+
+        Returns
+        -------
+        None.
+
+        '''
         self.chip_size_x = chip_size_x
         self.chip_size_y = chip_size_y
         self.layer_deep_grid = layer_deep_grid
@@ -30,6 +58,15 @@ class Border:
         self._cell = self.create_gds()
 
     def create_gds(self):
+        '''
+        
+
+        Returns
+        -------
+        cell : cell nezca object
+            Return cell object for the nezca library.
+
+        '''
         
         with nd.Cell(name=Border.cell_name) as cell:
             
@@ -59,4 +96,20 @@ class Border:
         return cell
 
     def put(self, *args, **kwargs):
+        '''
+        
+
+        Parameters
+        ----------
+        *args : TYPE
+            DESCRIPTION.
+        **kwargs : TYPE
+            DESCRIPTION.
+
+        Returns
+        -------
+        Cell to put on the nazca GDSII file
+            Do not chnage.
+
+        '''
         return self._cell.put(*args, **kwargs)

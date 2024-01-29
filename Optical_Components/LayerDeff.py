@@ -22,6 +22,9 @@ layers = {
 
 # create class layer
 class Layer:
+    '''
+    Define the Layers for the Payload, Structure, Metal Layers, Vias and Texts.
+    '''
     PAYLOAD = "PAYLOAD"
     Struct = "Struct"
     TXT_Struct = "TXT_Struct"

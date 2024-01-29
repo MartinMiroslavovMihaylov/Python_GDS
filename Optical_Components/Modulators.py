@@ -8,10 +8,58 @@ from Optical_Components.Coupler import *
 
 
 class MZM:
+    '''
+    Mach Zehnder Modulator
+    '''
     cell_MZM = "MZM"
     cell_WG = "WG"
 
     def __init__(self, width_Metal, length_Metal, width_WG, length_WG, width_MMI, length_MMI, length_WG_MMI, space, gap_MMI_WG, gap, layer_Struct= Layer.Struct, layer_text_Struct = Layer.TXT_Struct, layer_Metal = Layer.MET1, layer_text_Metal = Layer.TXT_MET1, layer_text_Pots = Layer.TXT_Ports, layer_Arrow = Layer.ARROW_CLR, text_MZM = "", text_WG = "", text_MMI = ""):
+        '''
+        
+
+        Parameters
+        ----------
+       width_Metal : int/float
+            Width of the metal electrodes.
+        length_Metal : int/float
+            Length of the metal electrodes.
+        width_WG : int/flaot
+            Width of the Waveguide.
+        length_WG : int/float
+            Length of the Waveguide.
+        width_MMI : int/float
+            Width of the Input/Output MMIs.
+        length_MMI : int/float
+            Length MMIs.
+        length_WG_MMI : int/float
+            Length of the Waveguides of the MMIs.
+        space : int/float
+            Space between the Input and Output waveguides
+        gap_MMI_WG : int/float
+            Gap between the MMI Waveguides.
+        gap : int/float
+            Gap between the metal electrodes and the Waveguides.
+        layer_Struct : list, optional
+            Layers Definition, do not change! The default is Layer.DEEP_GRID.
+        layer_Metal : list, optional
+            Layers Definition, do not change! The default is Layer.MET1.
+        layer_text_Metal : list, optional
+            Layers Definition, do not change! The default is Layer.TXT_MET1.
+        layer_text_WG :list, optional
+            Layers Definition, do not change! The default is Layer.TXT_Struct.
+        text_MZM : str, optional
+            Label on the MZM. The default is "".
+        text_WG : str, optional
+            Label the MZM Waveguides. The default is "".
+        text_MMI : str, optional
+            Label the MMIs. The default is "".
+
+        Returns
+        -------
+        None.
+
+        '''
         self.width_Metal = width_Metal
         self.length_Metal = length_Metal
         self.width_WG = width_WG
@@ -39,6 +87,15 @@ class MZM:
         self._cell = self.create_gds()
 
     def create_gds(self):
+        '''
+        
+
+        Returns
+        -------
+        cell : cell nezca object
+            Return cell object for the nezca library.
+
+        '''
         with nd.Cell(MZM.cell_MZM) as cell:
 
 
@@ -145,4 +202,20 @@ class MZM:
 
 
     def put(self, *args, **kwargs):
+        '''
+        
+
+        Parameters
+        ----------
+        *args : TYPE
+            DESCRIPTION.
+        **kwargs : TYPE
+            DESCRIPTION.
+
+        Returns
+        -------
+        Cell to put on the nazca GDSII file
+            Do not chnage.
+
+        '''
         return self._cell.put(*args, **kwargs)

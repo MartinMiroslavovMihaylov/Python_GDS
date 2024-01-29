@@ -7,9 +7,40 @@ from Optical_Components.LayerDeff import *
 
 
 class SBends_Bezier:
+    '''
+    S-Bends Bezier
+    '''
     cell_name = "SBends_Bezier"
 
     def __init__(self, width_WG, Bend_Length, Offset, layer_Struct=Layer.Struct, layer_text_Pots = Layer.TXT_Ports, layer_Arrow = Layer.ARROW_CLR, reverse = None, pins = True ):
+        '''
+        
+
+        Parameters
+        ----------
+        width_WG : int/float
+            Width of Waveguide.
+        Bend_Length : int/float
+            Length of S-Bend.
+        Offset : int/float
+            Input to Output offset.
+        layer_Struct : list, optional
+            Layers Definition, do not change! The default is Layer.Struct.
+        layer_text_Pots : list, optional
+            Layers Definition, do not change! The default is Layer.TXT_Ports.
+        layer_Arrow : list, optional
+            Layers Definition, do not change!The default is Layer.ARROW_CLR.
+        reverse : int/float, optional
+            Set revers to an  random numbe, for example reverse = 1 to mirror the
+            curve on the Y-Axis. The default is None.
+        pins : boolen, optional
+            Show pins in the GDSII file. The default is True.
+
+        Returns
+        -------
+        None.
+
+        '''
         self.width_WG = width_WG
         self.Bend_Length = Bend_Length
         self.Offset = Offset
@@ -27,6 +58,15 @@ class SBends_Bezier:
 
      
     def create_gds(self):
+        '''
+        
+
+        Returns
+        -------
+        cell : cell nezca object
+            Return cell object for the nezca library.
+
+        '''
         with nd.Cell(SBends_Bezier.cell_name) as cell:
             if self.reverse:
                 def x(t, x_S, **kwargs):
@@ -75,6 +115,22 @@ class SBends_Bezier:
     
 
     def put(self, *args, **kwargs):
+        '''
+        
+
+        Parameters
+        ----------
+        *args : TYPE
+            DESCRIPTION.
+        **kwargs : TYPE
+            DESCRIPTION.
+
+        Returns
+        -------
+        Cell to put on the nazca GDSII file
+            Do not chnage.
+
+        '''
         return self._cell.put(*args, **kwargs)
     
 
@@ -86,9 +142,38 @@ class SBends_Bezier:
 
 
 class SBends_Cos:
+    '''
+    S-Bend Cosinus Function
+    '''
     cell_name = "SBends_Cos"
 
     def __init__(self, width_WG, Bend_Length, Offset, layer_Struct=Layer.Struct, layer_text_Pots = Layer.TXT_Ports, layer_Arrow = Layer.ARROW_CLR, reverse = None):
+        '''
+        
+
+        Parameters
+        ----------
+        width_WG : int/float
+            Width Waveguide.
+        Bend_Length : int/float
+            Length of the S-Bend.
+        Offset : int/float
+            Input to Output offset.
+        layer_Struct : list, optional
+            Layers Definition, do not change! The default is Layer.Struct.
+        layer_text_Pots : list, optional
+            Layers Definition, do not change! The default is Layer.TXT_Ports.
+        layer_Arrow : list, optional
+            Layers Definition, do not change! The default is Layer.ARROW_CLR.
+        reverse : int/float, optional
+            Set revers to an  random numbe, for example reverse = 1 to mirror the
+            curve on the Y-Axis. The default is None.
+
+        Returns
+        -------
+        None.
+
+        '''
         self.width_WG = width_WG
         self.Bend_Length = Bend_Length
         self.Offset = Offset
@@ -102,6 +187,15 @@ class SBends_Cos:
         self._cell = self.create_gds()
 
     def create_gds(self):
+        '''
+        
+
+        Returns
+        -------
+        cell : cell nezca object
+            Return cell object for the nezca library.
+
+        '''
         if self.reverse:
             with nd.Cell(SBends_Cos.cell_name) as cell:
                 lenght = np.linspace(0,self.Bend_Length,1000)
@@ -144,6 +238,22 @@ class SBends_Cos:
     
     
     def put(self, *args, **kwargs):
+        '''
+        
+
+        Parameters
+        ----------
+        *args : TYPE
+            DESCRIPTION.
+        **kwargs : TYPE
+            DESCRIPTION.
+
+        Returns
+        -------
+        Cell to put on the nazca GDSII file
+            Do not chnage.
+
+        '''
         return self._cell.put(*args, **kwargs)
 
 
@@ -242,9 +352,35 @@ def rotate_matrix(x, y, a, l, angle, x_flip=False, y_flip=False):
 
 
 class Euler2:
+    '''
+    Euler curve (Function is tooken from CSEM)
+    '''
     cell_name = "Euler2"
 
     def __init__(self, waveguide_width, angle=90, radius=50, layer_Struct=Layer.Struct, layer_text_Pots = Layer.TXT_Ports, layer_Arrow = Layer.ARROW_CLR):
+        '''
+        
+
+        Parameters
+        ----------
+        waveguide_width : int/float
+            Waveguide Width
+        angle : int/float, optional
+            Euler Curve angle. The default is 90.
+        radius : int/float, optional
+            Curve radius. The default is 50.
+        layer_Struct : list, optional
+            Layers Definition, do not change! The default is Layer.Struct.
+        layer_text_Pots : list, optional
+            Layers Definition, do not change! The default is Layer.TXT_Ports.
+        layer_Arrow : list, optional
+            Layers Definition, do not change! The default is Layer.ARROW_CLR.
+
+        Returns
+        -------
+        None.
+
+        '''
         self.waveguide_width = waveguide_width
         self.layer_Struct = layer_Struct
         self.layer_text_Pots = layer_text_Pots
@@ -256,6 +392,16 @@ class Euler2:
         self._cell = self.create_gds()
 
     def create_gds(self):
+        '''
+        
+
+        Returns
+        -------
+        cell : cell nezca object
+            Return cell object for the nezca library.
+
+
+        '''
         with nd.Cell(name=Euler2.cell_name) as cell:
             euler = nd.euler(radius=self.radius, angle=self.angle/2, width1=self.waveguide_width, width2=self.waveguide_width, layer = self.layer_Struct)
             euler1_put = euler.put()
@@ -268,6 +414,22 @@ class Euler2:
         return cell
 
     def put(self, *args, **kwargs):
+        '''
+        
+
+        Parameters
+        ----------
+        *args : TYPE
+            DESCRIPTION.
+        **kwargs : TYPE
+            DESCRIPTION.
+
+        Returns
+        -------
+        Cell to put on the nazca GDSII file
+            Do not chnage.
+
+        '''
         return self._cell.put(*args, **kwargs)
 
 
@@ -277,11 +439,42 @@ class Euler2:
 
 
 class SBend_Euler:
+    '''
+    Euler S-Bends tooken from (CSEM)
+    '''
     cell_name = "SBendEuler"
     cell_name_bend = "SBendEuler_bend"
 
 
     def __init__(self, width_WG, Offset, Bend_Length=None, radius=50, reverse=None, layer_Struct=Layer.Struct, layer_text_Pots = Layer.TXT_Ports, layer_Arrow = Layer.ARROW_CLR):
+        '''
+        
+
+        Parameters
+        ----------
+        width_WG : int/float
+            Width of the Waveguuide
+        Offset : int/float
+            Offset between the Input and Output Waveguides.
+        Bend_Length : int/float, optional
+            Length of the S-Bend. The default is None.
+        radius : int/float, optional
+            Radius of the S-Bend. The default is 50.
+        reverse : int/float, optional
+            Set revers to an  random numbe, for example reverse = 1 to mirror the
+            curve on the Y-Axis. The default is None.
+        layer_Struct : list, optional
+            Layers Definition, do not change!. The default is Layer.Struct.
+        layer_text_Pots : list, optional
+            Layers Definition, do not change! The default is Layer.TXT_Ports.
+        layer_Arrow : list, optional
+            Layers Definition, do not change! The default is Layer.ARROW_CLR.
+
+        Returns
+        -------
+        None.
+
+        '''
         self.width_WG = width_WG
         self.layer_Struct = layer_Struct
         self.layer_text_Pots = layer_text_Pots
@@ -301,6 +494,22 @@ class SBend_Euler:
         self._cell = self.create_gds()
 
     def create_bend(self, radius, angle):
+        '''
+        
+
+        Parameters
+        ----------
+        radius : int/float
+            Rdius of the Euler curve.
+        angle : int/float
+            Angle of the euler bend.
+
+        Returns
+        -------
+        cell : cell nezca object
+            Return cell object for the nezca library.
+
+        '''
         if self.reverse:
             with nd.Cell(name=SBend_Euler.cell_name_bend ) as cell:
                 x, y, a, l = xya_sbend_euler(radius, angle)
@@ -333,6 +542,15 @@ class SBend_Euler:
 
 
     def create_gds(self):
+        '''
+        
+
+        Returns
+        -------
+        cell : cell nezca object
+            Return cell object for the nezca library.
+
+        '''
         with nd.Cell(name=SBend_Euler.cell_name) as cell:
 
             # calculate the length y
@@ -414,6 +632,22 @@ class SBend_Euler:
         return cell
 
     def put(self, *args, **kwargs):
+        '''
+        
+
+        Parameters
+        ----------
+        *args : TYPE
+            DESCRIPTION.
+        **kwargs : TYPE
+            DESCRIPTION.
+
+        Returns
+        -------
+        Cell to put on the nazca GDSII file
+            Do not chnage.
+
+        '''
         return self._cell.put(*args, **kwargs)
     
 
