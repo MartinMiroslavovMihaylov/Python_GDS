@@ -4,89 +4,119 @@ from Optical_Components.Waveguides import *
 from Optical_Components.S_Bends import *
 from Optical_Components.Coupler import *
 from Optical_Components.Modulators import *
-
+from Optical_Components.Help import * 
 
 import numpy as np
+
+
+# # =============================================================================
+# # Help Section
+# # =============================================================================
+
+# # Call for Help 
+# Help()
+
+
+# Help('Boarder')
+# Help({'Boarder':1})
+
+# Help('Coupler')
+# Help({'Coupler':1})
+
+# Help('Modulators')
+# Help({'Modulators':1})
+
+# Help('S_Bends')
+# Help({'S_Bends':1})
+ 
+# Help('Waveguides')
+# Help({'Waveguides':1})
+
+# Help('Export GDSII')
+# Help({'Export GDSII':1})
+
 
 # ========================================================
 # Single Components Example
 # ========================================================
 
-# Create an Chip 
-parameters = {"chip_size_x": 10000, "chip_size_y": 7000}
-Border(**parameters).put()
+# # Create an Chip 
+# parameters = {"chip_size_x": 10000, "chip_size_y": 7000}
+# Border(**parameters).put()
 
 
-# S-Bends Cubic Bezier  
-parameters = {'Bend_Length':300, 'Offset':50, 'width_WG':2}
-SBend1 = SBends_Bezier(**parameters).put(0,600, 0 )
+# # S-Bends Cubic Bezier  
+# parameters = {'Bend_Length':300, 'Offset':100, 'width_WG':2}
+# SBend1 = SBends_Bezier(**parameters).put(0,600, 0 )
 
-# S-Bend Cosinus Function
-parameters = {'Bend_Length':300, 'Offset':50, 'width_WG':2}
-SBend2 = SBends_Cos(**parameters).put(0,500, 0)
-
-
-
-# S-Bend Euler Function
-parameters = {"width_WG": 2, "Offset": 10, "Bend_Length": 300}  
-SBend3 = SBend_Euler(**parameters).put(0,400, 0)
-
-
-# S-Bend Euler Function Reverse
-parameters = {"width_WG": 2, "Offset": 10, "Bend_Length": 300, "reverse":1}  
-SBend4 = SBend_Euler(**parameters).put(0,400, 0)
+# # S-Bend Cosinus Function
+# parameters = {'Bend_Length':300, 'Offset':100, 'width_WG':2}
+# SBend2 = SBends_Cos(**parameters).put(0,500, 0)
 
 
 
-# Straight Waveguide
-parameters = {"width_WG":1, "length_WG":300}
-StrWG1 = StrWG(**parameters).put(0,400,0)
+# # S-Bend Euler Function
+# parameters = {"width_WG": 2, "Offset": 100, "Bend_Length": 300}  
+# SBend3 = SBend_Euler(**parameters).put(0,400, 0)
+
+
+# # S-Bend Euler Function Reverse
+# parameters = {"width_WG": 2, "Offset": 10, "Bend_Length": 300, "reverse":1}  
+# SBend4 = SBend_Euler(**parameters).put(0,400, 0)
 
 
 
-# Basic 2x1 MMI
-parameters = {"width_MMI":15, "length_MMI":100, "width_WG":2, "length_WG":50, "gap":3}
-MMi1 = MMI1x2(**parameters).put(0,300,0)
-
-
-# 2x1 MMI with S_Bends 
-parameters = {"width_MMI":15, "length_MMI":50, "width_WG":2, "length_WG":10, "gap":1, "spacing": 20, "lenght_bend": 40}
-MMi1 = MMI1x2(**parameters).put(0,200,0)
-
-
-# MZM
-parameters = {'length_Metal': 500, 'width_Metal': 50, 'width_WG':2, 'length_WG':600, 'length_MMI':20, 'width_MMI': 10, 'length_WG_MMI':10, 'space': 100, 'gap_MMI_WG':5, 'gap':5, "text_MZM": "MZM Test Martin", "text_WG": "WG Test Martin", "text_MMI": "MMI"}
-MZM1 = MZM(**parameters).put(0,0,0)
-
-# Directional coupler
-parameters = {"length_DC":100, "width_WG":2, "gap":2, "spacing": 40, "lenght_bend": 40}
-DC1 = DirectionalCoupler(**parameters).put(0, -200, 0)
-
-# Connect two S-Bends with straight Waveguide
-parameters = {'Bend_Length':300, 'Offset':50, 'width_WG':2}
-SBend3 = SBends_Bezier(**parameters).put(0,-500, 0)
-parameters = {'Bend_Length':300, 'Offset':50, 'width_WG':2, "reverse":1}
-SBend4 = SBends_Bezier(**parameters).put(500,-500, 0)
-parameters = {"pin2": SBend3.pin["SBendBez_Out"], "pin1": SBend4.pin["SBendBezR_In"]}
-StrWG_P2P(**parameters).put()
-
-# Y Junctions
-parameters = {"length":20, "width_WG":2, "gap":10, "spacing":40, "Bend_Length":30}
-YJunction(**parameters).put(0,-300,0)
-
-parameters = {"length":20, "width_WG":2, "gap":10, "spacing":40, "Bend_Length":30, "reverse":1}
-YJunction(**parameters).put(0,-300,0)
+# # Straight Waveguide
+# parameters = {"width_WG":1, "length_WG":300}
+# StrWG1 = StrWG(**parameters).put(0,400,0)
 
 
 
-# create GDS in folder 
-nd.export_gds(filename = "TestChip_Single.gds")
+# # Basic 2x1 MMI
+# parameters = {"width_MMI":15, "length_MMI":100, "width_WG":2, "length_WG":50, "gap":3}
+# MMi1 = MMI1x2(**parameters).put(0,300,0)
+
+
+# # 2x1 MMI with S_Bends 
+# parameters = {"width_MMI":15, "length_MMI":50, "width_WG":2, "length_WG":10, "gap":1, "spacing": 20, "lenght_bend": 40}
+# MMi1 = MMI1x2(**parameters).put(0,200,0)
+
+
+# # MZM
+# parameters = {'length_Metal': 500, 'width_Metal': 50, 'width_WG':2, 'length_WG':600, 'length_MMI':20, 'width_MMI': 10, 'length_WG_MMI':10, 'space': 100, 'gap_MMI_WG':5, 'gap':5, "text_MZM": "MZM Test Martin", "text_WG": "WG Test Martin", "text_MMI": "MMI"}
+# MZM1 = MZM(**parameters).put(0,0,0)
+
+# # Directional coupler
+# parameters = {"length_DC":100, "width_WG":2, "gap":2, "spacing": 40, "lenght_bend": 40}
+# DC1 = DirectionalCoupler(**parameters).put(0, -200, 0)
+
+# # Connect two S-Bends with straight Waveguide
+# parameters = {'Bend_Length':300, 'Offset':50, 'width_WG':2}
+# SBend3 = SBends_Bezier(**parameters).put(0,-500, 0)
+# parameters = {'Bend_Length':300, 'Offset':50, 'width_WG':2, "reverse":1}
+# SBend4 = SBends_Bezier(**parameters).put(500,-500, 0)
+# parameters = {"pin2": SBend3.pin["SBendBez_Out"], "pin1": SBend4.pin["SBendBezR_In"]}
+# StrWG_P2P(**parameters).put()
+
+# # Y Junctions
+# parameters = {"length":20, "width_WG":2, "gap":10, "spacing":40, "Bend_Length":30}
+# YJunction(**parameters).put(0,-300,0)
+
+# parameters = {"length":20, "width_WG":2, "gap":10, "spacing":40, "Bend_Length":30, "reverse":1}
+# YJunction(**parameters).put(0,-300,0)
 
 
 
-# ========================================================
-# Multiple components Macro
-# ========================================================
+# # create GDS in folder 
+# nd.export_gds(filename = "TestChip_Single.gds")
+
+
+
+
+
+# # ========================================================
+# # Multiple components Macro
+# # ========================================================
 
 # # ========================================================
 # # Params

@@ -104,7 +104,7 @@ class StrWG_P2P:
         '''
         
 
-        arameters
+        Parameters
         ----------
         pin1 : list of str
             List of str with the pin name. For example Struct.pin["SBendBezR_In"]
